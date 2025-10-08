@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -84,4 +85,16 @@ class MecabKoDicWord(BaseModel):
     last_pos: str = Field(..., description="마지막 품사 (e.g., EP)")
     expression: str = Field(
         ..., description="표현 (형태소 분해식; e.g., 해수/NNG/*+욕/NNG/*+장/NNG/*)"
+    )
+
+
+class ParsedExpression(BaseModel):
+    lemma: str = Field(..., description="표제어")
+    pos: str = Field(..., description="품사 태그 (e.g., NNG, NNP, VV)")
+
+
+class Data(BaseModel):
+    word: MecabKoDicWord = Field(..., description="파싱된 단어")
+    parsed_expression: Optional[List[ParsedExpression]] = Field(
+        None, description="형태소 분석 결과"
     )
