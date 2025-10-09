@@ -48,7 +48,7 @@ def parse_expression(s: str) -> list[ParsedExpression]:
 
     res = []
     for lemma, pos in pattern.findall(s):
-        res.append(ParsedExpression(lemma=lemma, pos=pos))
+        res.append(ParsedExpression(lemma=lemma, pos=pos, pos_trans=translate_pos(pos)))
 
     return res
 
