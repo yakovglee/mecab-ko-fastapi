@@ -13,6 +13,10 @@ class WordType(str, Enum):
 class MecabKoDicWord(BaseModel):
     surface: str = Field(..., description="표층형")
     pos: str = Field(..., description="품사 태그 (e.g., NNG, NNP, VV+EM+VX+EP)")
+    pos_trans: str = Field(
+        ...,
+        description="품사 태그 번역 (e.g., 일반 명사, 고유 명사, 동사+어미+보조 용언+선어말 어미)",
+    )
     semantic_class: str = Field(..., description="의미 부류 (e.g., 지명)")
     has_final_consonant: bool = Field(..., description="종성 유무")
     reading: str = Field(..., description="읽기")

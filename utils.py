@@ -31,7 +31,8 @@ def parse_text(text: str) -> list[Data]:
 def make_mecab(surface: str, features: list[str]) -> MecabKoDicWord:
     return MecabKoDicWord(
         surface=surface,
-        pos=translate_pos(features[0]),
+        pos=features[0],
+        pos_trans=translate_pos(features[0]),
         semantic_class=features[1],
         has_final_consonant=(features[2].upper() == "T"),
         reading=features[3],
