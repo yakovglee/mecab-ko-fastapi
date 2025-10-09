@@ -31,6 +31,7 @@ class MecabKoDicWord(BaseModel):
 class ParsedExpression(BaseModel):
     lemma: str = Field(..., description="표제어")
     pos: str = Field(..., description="품사 태그 (e.g., NNG, NNP, VV)")
+    pos_trans: str= Field(None, description="품사 태그 번역 (e.g., 일반 명사, 고유)")
 
 
 class Data(BaseModel):
