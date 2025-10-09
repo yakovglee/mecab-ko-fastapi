@@ -2,7 +2,19 @@ from fastapi import FastAPI, Body, HTTPException
 from utils import parse_text
 from wordtypes import Data
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=False,
+    allow_methods=["POST"],
+    allow_headers=["Content-Type", "Authorization"],
+)
 
 
 @app.post("/", response_model=list[Data])
