@@ -100,4 +100,8 @@ def translate_pos(pos: str) -> str:
         "SN": "숫자",
     }
 
-    return pos_dict.get(pos, pos)
+    parts = re.compile(r"\s*\+\s*").split(pos.strip())
+    translated_parts = [pos_dict.get(p, p) for p in parts]
+    return '+'.join(translated_parts)
+
+
