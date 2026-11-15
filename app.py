@@ -10,7 +10,7 @@ from wordtypes import Data
 
 logger = logging.getLogger(__name__)
 
-app = FastAPI()
+app = FastAPI(openapi_url="/openapi.json" if settings.docs_enabled else None)
 
 app.add_middleware(
     CORSMiddleware,

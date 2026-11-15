@@ -8,7 +8,7 @@ FastAPI service for **Korean morphological analysis** powered by **MeCab‑ko** 
 
 * Simple HTTP API for analyzing Korean text.
 * Returns tokens with POS tags, semantic info, and (if available) detailed morpheme breakdown.
-* Interactive Swagger documentation available at `/docs`.
+* Interactive Swagger documentation available at `/docs` (only when `DOCS_ENABLED=true`; disabled by default).
 
 ---
 
@@ -35,7 +35,10 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 # 3) Install dependencies
 pip install -r requirements.txt
 
-# 4) Run the development server
+# 4) Create local config (enables /docs)
+cp .env.example .env
+
+# 5) Run the development server
 fastapi dev app.py
 # Default: http://127.0.0.1:8000
 # Docs: http://127.0.0.1:8000/docs
