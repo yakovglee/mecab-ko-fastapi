@@ -1,8 +1,14 @@
+import logging
+
 from fastapi import FastAPI, Body, HTTPException
 from utils import parse_text
 from wordtypes import Data
 
 from fastapi.middleware.cors import CORSMiddleware
+
+logger = logging.getLogger(__name__)
+
+MAX_TEXT_LENGTH = 10_000
 
 app = FastAPI()
 
@@ -18,14 +24,17 @@ app.add_middleware(
 
 
 @app.post("/", response_model=list[Data])
-def read_root(text: str = Body(..., embed=True)):
-
+def read_root(
+    text: str = Body(..., embed=True, min_length=1, max_length=MAX_TEXT_LENGTH),
+):
     try:
         tokens = parse_text(text)
-        if not tokens:
-            raise HTTPException(status_code=404, detail="Не удалось распарсить текст")
-        return tokens
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=f"Ошибка в данных: {e}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка парсинга: {e}")
+    except ValueError:
+        logger.exception("Invalid input for parsing")
+        raise HTTPException(status_code=400, detail="Ошибка в данных")
+    except Exception:
+        logger.exception("Parsing failed")
+        raise HTTPException(status_code=500, detail="Ошибка парсинга")
+    if not tokens:
+        raise HTTPException(status_code=404, detail="Не удалось распарсить текст")
+    return tokens
