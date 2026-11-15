@@ -3,7 +3,8 @@ import logging
 from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from constants import CORS_ORIGINS, MAX_TEXT_LENGTH
+from config import settings
+from constants import MAX_TEXT_LENGTH
 from utils import parse_text
 from wordtypes import Data
 
@@ -13,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=settings.cors_origins,
     allow_credentials=False,
     allow_methods=["POST"],
     allow_headers=["Content-Type", "Authorization"],

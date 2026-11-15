@@ -1,15 +1,6 @@
-import os
 import re
 
 MAX_TEXT_LENGTH = 10_000
-
-# Список разрешённых origin через запятую, например:
-# CORS_ORIGINS="https://example.com,http://localhost:3000"
-CORS_ORIGINS = [
-    origin.strip()
-    for origin in os.getenv("CORS_ORIGINS", "*").split(",")
-    if origin.strip()
-]
 
 POS_TRANSLATIONS = {
     "NNG": "일반 명사",

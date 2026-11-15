@@ -6,7 +6,6 @@ from wordtypes import Data, MecabKoDicWord, ParsedExpression
 
 def parse_text(text: str) -> list[Data]:
     """Парсит текст с помощью MeCab и возвращает список токенов."""
-    # Tagger создаётся за ~0.25 мс; отдельный экземпляр на вызов не делится между потоками.
     tagger = MeCab.Tagger()
 
     tokens: list[Data] = []
