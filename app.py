@@ -1,22 +1,19 @@
 import logging
 
 from fastapi import FastAPI, Body, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
+from constants import CORS_ORIGINS, MAX_TEXT_LENGTH
 from utils import parse_text
 from wordtypes import Data
 
-from fastapi.middleware.cors import CORSMiddleware
-
 logger = logging.getLogger(__name__)
-
-MAX_TEXT_LENGTH = 10_000
 
 app = FastAPI()
 
-origins = ["*"]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=CORS_ORIGINS,
     allow_credentials=False,
     allow_methods=["POST"],
     allow_headers=["Content-Type", "Authorization"],
